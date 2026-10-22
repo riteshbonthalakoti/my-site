@@ -1,199 +1,187 @@
 // ==========================================================================
-// RITESH BONTHALAKOTI — 1-PAGE-AT-A-TIME INTERACTIVE BOOK SCRIPT
-// Smooth Page Transitions, Folio Navigation, Touch Swiping & Theme Control
+// RITESH BONTHALAKOTI — CLEAN 1-PAGE BOOK NAVIGATION SCRIPT
+// Silky Page Transitions, Keyboard Controls, Touch Gestures, Theme Toggle
 // ==========================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    const totalPages = 6;
-    let currentPage = 1;
-    let isTurning = false;
+    const totalPages = 8;
+    let currentIndex = 1;
+    let isTransitioning = false;
 
     // DOM Elements
-    const pages = document.querySelectorAll('.book-page');
-    const leafDots = document.querySelectorAll('.leaf-dot');
-    const curPageNumEl = document.getElementById('cur-page-num');
-    const currentChapterTitleEl = document.getElementById('current-chapter-title');
+    const pages = document.querySelectorAll('.page-view');
+    const pills = document.querySelectorAll('.pill');
+    const chapterLabel = document.getElementById('chapter-label');
+    const pageReadoutText = document.getElementById('page-readout-text');
     const btnPrev = document.getElementById('btn-prev');
     const btnNext = document.getElementById('btn-next');
-    const prevArrow = document.getElementById('prev-page-arrow');
-    const nextArrow = document.getElementById('next-page-arrow');
+    const arrowPrev = document.getElementById('arrow-prev');
+    const arrowNext = document.getElementById('arrow-next');
     const tocBtn = document.getElementById('toc-btn');
-    const tocMenu = document.getElementById('toc-menu');
-    const themeToggle = document.getElementById('theme-toggle');
-    const bookFrame = document.getElementById('book-frame');
+    const tocDropdown = document.getElementById('toc-dropdown');
+    const themeBtn = document.getElementById('theme-btn');
+    const themeModeText = document.getElementById('theme-mode-text');
+    const bookLeaf = document.getElementById('book-leaf');
 
-    // 1. Core Page Navigation with Smooth Transition
-    function goToPage(targetPage, direction = null) {
-        if (targetPage < 1 || targetPage > totalPages || targetPage === currentPage || isTurning) {
+    // 1. Smooth Page Turn Function
+    function goToPage(targetIndex, direction = null) {
+        if (targetIndex < 1 || targetIndex > totalPages || targetIndex === currentIndex || isTransitioning) {
             return;
         }
 
-        isTurning = true;
-        const fromPageEl = document.querySelector(`.book-page[data-page="${currentPage}"]`);
-        const toPageEl = document.querySelector(`.book-page[data-page="${targetPage}"]`);
+        isTransitioning = true;
+        const fromPage = document.querySelector(`.page-view[data-index="${currentIndex}"]`);
+        const toPage = document.querySelector(`.page-view[data-index="${targetIndex}"]`);
 
-        // Determine transition direction if not passed
-        const isForward = direction ? direction === 'forward' : targetPage > currentPage;
+        const isForward = direction ? direction === 'forward' : targetIndex > currentIndex;
 
-        // Reset scroll position within the page
-        const scrollableAreas = toPageEl.querySelectorAll('.projects-scrollable, .chronicle-timeline');
-        scrollableAreas.forEach(area => area.scrollTop = 0);
+        // Animate Outgoing Page
+        fromPage.classList.remove('active');
+        fromPage.classList.add(isForward ? 'exit-left' : 'exit-right');
 
-        // Animate outgoing page
-        fromPageEl.classList.remove('active');
-        fromPageEl.classList.add(isForward ? 'turning-left-out' : 'turning-right-out');
+        // Setup Incoming Page
+        toPage.style.display = 'flex';
+        toPage.style.opacity = '0';
+        toPage.style.transform = isForward ? 'translateX(35px)' : 'translateX(-35px)';
 
-        // Prepare incoming page
-        toPageEl.style.transform = isForward 
-            ? 'translateX(50px) rotateY(-4deg)' 
-            : 'translateX(-50px) rotateY(4deg)';
-        toPageEl.style.opacity = '0';
-        toPageEl.style.display = 'flex';
-
-        // Force browser reflow
-        void toPageEl.offsetWidth;
+        // Force browser layout reflow
+        void toPage.offsetWidth;
 
         setTimeout(() => {
-            // Animate incoming page in
-            toPageEl.classList.add('active');
-            toPageEl.style.transform = 'translateX(0) rotateY(0deg)';
-            toPageEl.style.opacity = '1';
+            toPage.classList.add('active');
+            toPage.style.opacity = '1';
+            toPage.style.transform = 'translateX(0)';
 
-            // Clean up outgoing page classes
-            fromPageEl.classList.remove('turning-left-out', 'turning-right-out');
-            fromPageEl.style.display = 'none';
+            fromPage.classList.remove('exit-left', 'exit-right');
+            fromPage.style.display = 'none';
 
-            // Update state
-            currentPage = targetPage;
-            updateUIState();
-            isTurning = false;
-        }, 220);
+            currentIndex = targetIndex;
+            updateControlsState();
+            isTransitioning = false;
+        }, 200);
 
-        // Scroll to top of book frame smoothly
+        // Scroll back to top if scrolled
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function updateUIState() {
-        const activePageEl = document.querySelector(`.book-page[data-page="${currentPage}"]`);
-        const chapterName = activePageEl ? activePageEl.getAttribute('data-chapter') : '';
+    // 2. Update UI Indicators
+    function updateControlsState() {
+        const activePage = document.querySelector(`.page-view[data-index="${currentIndex}"]`);
+        const title = activePage ? activePage.getAttribute('data-title') : '';
 
-        // Update Header & Readout
-        if (curPageNumEl) curPageNumEl.textContent = `Leaf ${currentPage}`;
-        if (currentChapterTitleEl) currentChapterTitleEl.textContent = chapterName;
+        // Update Labels
+        if (chapterLabel) chapterLabel.textContent = title;
+        if (pageReadoutText) pageReadoutText.textContent = `Page ${currentIndex} of ${totalPages}`;
 
-        // Update Leaf Dots
-        leafDots.forEach(dot => {
-            const pageNum = parseInt(dot.getAttribute('data-goto'), 10);
-            dot.classList.toggle('active', pageNum === currentPage);
+        // Update Dots / Pills
+        pills.forEach(pill => {
+            const pageNum = parseInt(pill.getAttribute('data-page'), 10);
+            pill.classList.toggle('active', pageNum === currentIndex);
         });
 
-        // Update Prev/Next button states
-        const isFirst = currentPage === 1;
-        const isLast = currentPage === totalPages;
+        // Update Prev / Next Buttons
+        const isFirst = currentIndex === 1;
+        const isLast = currentIndex === totalPages;
 
         if (btnPrev) btnPrev.disabled = isFirst;
-        if (prevArrow) prevArrow.disabled = isFirst;
+        if (arrowPrev) arrowPrev.disabled = isFirst;
 
         if (btnNext) btnNext.disabled = isLast;
-        if (nextArrow) nextArrow.disabled = isLast;
+        if (arrowNext) arrowNext.disabled = isLast;
     }
 
-    // 2. Button Event Listeners
-    if (btnPrev) btnPrev.addEventListener('click', () => goToPage(currentPage - 1, 'backward'));
-    if (prevArrow) prevArrow.addEventListener('click', () => goToPage(currentPage - 1, 'backward'));
+    // 3. Navigation Triggers
+    if (btnPrev) btnPrev.addEventListener('click', () => goToPage(currentIndex - 1, 'backward'));
+    if (arrowPrev) arrowPrev.addEventListener('click', () => goToPage(currentIndex - 1, 'backward'));
 
-    document.querySelectorAll('.next-action').forEach(btn => {
-        btn.addEventListener('click', () => goToPage(currentPage + 1, 'forward'));
+    document.querySelectorAll('.next-trigger').forEach(btn => {
+        btn.addEventListener('click', () => goToPage(currentIndex + 1, 'forward'));
     });
 
-    // Jump to page clicks (TOC cards & Popover)
-    document.querySelectorAll('[data-goto]').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const target = parseInt(btn.getAttribute('data-goto'), 10);
-            if (!isNaN(target)) {
-                goToPage(target);
-                if (tocMenu) tocMenu.classList.add('hidden');
+    // Jump to specific page buttons (Pills, Table of Contents, Dropdown)
+    document.querySelectorAll('[data-page]').forEach(el => {
+        el.addEventListener('click', () => {
+            const page = parseInt(el.getAttribute('data-page'), 10);
+            if (!isNaN(page)) {
+                goToPage(page);
+                if (tocDropdown) tocDropdown.classList.add('hidden');
             }
         });
     });
 
-    // 3. Chapter Menu Popover Toggle
-    if (tocBtn && tocMenu) {
+    // 4. TOC Dropdown Popover
+    if (tocBtn && tocDropdown) {
         tocBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            tocMenu.classList.toggle('hidden');
+            tocDropdown.classList.toggle('hidden');
         });
 
         document.addEventListener('click', (e) => {
-            if (!tocMenu.contains(e.target) && !tocBtn.contains(e.target)) {
-                tocMenu.classList.add('hidden');
+            if (!tocDropdown.contains(e.target) && !tocBtn.contains(e.target)) {
+                tocDropdown.classList.add('hidden');
             }
         });
     }
 
-    // 4. Keyboard Navigation
+    // 5. Keyboard Navigation
     window.addEventListener('keydown', (e) => {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
         if (e.key === 'ArrowRight' || e.key === 'PageDown') {
             e.preventDefault();
-            goToPage(currentPage + 1, 'forward');
+            goToPage(currentIndex + 1, 'forward');
         } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
             e.preventDefault();
-            goToPage(currentPage - 1, 'backward');
+            goToPage(currentIndex - 1, 'backward');
         } else if (e.key === 't' || e.key === 'T') {
-            if (themeToggle) themeToggle.click();
+            if (themeBtn) themeBtn.click();
         }
     });
 
-    // 5. Touch / Mobile Swipe Support
+    // 6. Mobile Touch Swipe Gestures
     let touchStartX = 0;
     let touchEndX = 0;
 
-    if (bookFrame) {
-        bookFrame.addEventListener('touchstart', (e) => {
+    if (bookLeaf) {
+        bookLeaf.addEventListener('touchstart', (e) => {
             touchStartX = e.changedTouches[0].screenX;
         }, { passive: true });
 
-        bookFrame.addEventListener('touchend', (e) => {
+        bookLeaf.addEventListener('touchend', (e) => {
             touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
+            const threshold = 50;
+            if (touchEndX < touchStartX - threshold) {
+                // Swiped Left -> Next
+                goToPage(currentIndex + 1, 'forward');
+            } else if (touchEndX > touchStartX + threshold) {
+                // Swiped Right -> Prev
+                goToPage(currentIndex - 1, 'backward');
+            }
         }, { passive: true });
     }
 
-    function handleSwipe() {
-        const threshold = 55;
-        if (touchEndX < touchStartX - threshold) {
-            // Swiped Left -> Go Next Page
-            goToPage(currentPage + 1, 'forward');
-        } else if (touchEndX > touchStartX + threshold) {
-            // Swiped Right -> Go Previous Page
-            goToPage(currentPage - 1, 'backward');
-        }
-    }
+    // 7. Paper / Night Reading Themes
+    const root = document.documentElement;
+    const storedTheme = localStorage.getItem('monograph-theme') || 'paper';
+    root.setAttribute('data-theme', storedTheme);
+    updateThemeButton(storedTheme);
 
-    // 6. Paper / Night Reading Mode Toggle
-    const rootHtml = document.documentElement;
-    const savedTheme = localStorage.getItem('book-theme') || 'paper';
-    rootHtml.setAttribute('data-theme', savedTheme);
-    updateThemeLabel(savedTheme);
-
-    if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = rootHtml.getAttribute('data-theme') || 'paper';
+    if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+            const currentTheme = root.getAttribute('data-theme') || 'paper';
             const nextTheme = currentTheme === 'paper' ? 'night' : 'paper';
-            rootHtml.setAttribute('data-theme', nextTheme);
-            localStorage.setItem('book-theme', nextTheme);
-            updateThemeLabel(nextTheme);
+            root.setAttribute('data-theme', nextTheme);
+            localStorage.setItem('monograph-theme', nextTheme);
+            updateThemeButton(nextTheme);
         });
     }
 
-    function updateThemeLabel(theme) {
-        if (!themeToggle) return;
-        const text = themeToggle.querySelector('.theme-text');
-        if (text) text.textContent = theme === 'paper' ? 'Night' : 'Paper';
+    function updateThemeButton(theme) {
+        if (themeModeText) {
+            themeModeText.textContent = theme === 'paper' ? 'Night' : 'Paper';
+        }
     }
 
-    // Initialize UI on load
-    updateUIState();
+    // Initial setup
+    updateControlsState();
 });
