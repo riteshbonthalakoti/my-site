@@ -1,33 +1,24 @@
-# Ritesh Bonthalakoti — AI & Hardware Engineer Portfolio
+# Between the Physical & the Digital — A Technical Monograph
 
-Personal portfolio and approved project page for **Hack Club Boba Bash Visakhapatnam**.
+A minimal, clean, book-type technical monograph by **Ritesh Bonthalakoti**, approved and featured for **Hack Club Boba Bash Visakhapatnam**.
 
-🌐 **Live Site**: [https://riteshbonthalakoti.github.io/my-site/](https://riteshbonthalakoti.github.io/my-site/)  
-🚀 **Primary Domain**: [https://riteshbonthalakoti.pages.dev](https://riteshbonthalakoti.pages.dev)
-
----
-
-## ⚡ Highlights
-- **AI & Embedded Systems**: Bridging ESP32 microcontrollers, edge sensor hardware, and transformer NLP pipelines (DistilBERT, Gemini API).
-- **Featured Projects**:
-  - **RaceXplorer**: Real-time IoT race timing system with millisecond precision (1st Prize, ₹10,000 Cash Award).
-  - **Helpdesk.ai**: Enterprise neural ticket routing orchestrator built with DistilBERT and Supabase RLS.
-  - **Dhwanix**: Acoustic pollution monitoring system for hospitals and quiet zones.
-  - **SHEM**: Smart home energy manager with AI consumption forecasting.
-- **Milestones**:
-  - AIR 1,435 in AINCAT 2025 (Top 0.4% Nationally out of 3.6L+ participants)
-  - Viksit Bharat Young Leaders Dialogue 2026 Delegate (Govt. of India)
-  - NASA International Space Apps Challenge National Participant
-  - Rank 120 / 4000+ in NEC 2025 (E-Cell, IIT Bombay)
+📖 **Read Online**: [https://riteshbonthalakoti.github.io/my-site/](https://riteshbonthalakoti.github.io/my-site/)  
+🌐 **Primary Domain**: [https://riteshbonthalakoti.pages.dev](https://riteshbonthalakoti.pages.dev)
 
 ---
 
-## 🛠️ Tech Stack
-- **Languages**: C/C++, Python, JavaScript (ES6+), HTML5, CSS3
-- **Hardware & IoT**: ESP32, Arduino, ESP8266, I2C/SPI, Analog & Digital Sensors
-- **AI/ML**: PyTorch, DistilBERT, Gemini API, Edge ML
-- **Web & Cloud**: React, Next.js, Supabase, Cloudflare Pages, GitHub Pages
+## 📜 Monograph Chapters
+1. **Chapter I: The Maker's Ledger** — Background, core engineering philosophy, domain taxonomy.
+2. **Chapter II: The Apparatus (Featured Inventions)** — Detailed engineering specs for *RaceXplorer* (1st Prize Winner), *Helpdesk.ai*, *Dhwanix*, *SHEM*, and *Futuristic IoT Home Automation*.
+3. **Chapter III: Chronicles of Industry & Fieldwork** — Experience at *Dharanova*, *Gratian Technologies*, *PUSULA International*, *LearnDepth*, *Infosys Springboard*, and *Wission Axis*.
+4. **Chapter IV: Laurels, Rank & Distinctions** — Formal record of recognitions (*Viksit Bharat Young Leaders Dialogue*, *NASA Space Apps Challenge*, *AINCAT Top 0.4%*, *NEC IIT Bombay*).
+5. **Chapter V: Colophon & Correspondence** — Inquiries, contact channels, and typographical colophon.
 
 ---
 
-&copy; 2026 [Ritesh Bonthalakoti](https://riteshbonthalakoti.pages.dev). Built for Hack Club Boba Bash Visakhapatnam.
+## 🖋️ Design & Typography
+- Typeset in **Newsreader** (variable optical serif), **Plus Jakarta Sans**, and **JetBrains Mono**.
+- Clean book margins and dual reading modes: **Paper (Warm Ivory Cream)** & **Night (Parchment Dark)**.
+- Reading progress tracker and distraction-free layout.
+
+&copy; 2026 [Ritesh Bonthalakoti](https://riteshbonthalakoti.pages.dev). Handcrafted for Hack Club Boba Bash Visakhapatnam.
