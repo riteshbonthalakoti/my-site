@@ -3,509 +3,530 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ritesh Bonthalakoti — A Monograph of Hardware & Intelligence</title>
-    <meta name="description" content="A clean editorial book-type monograph by Ritesh Bonthalakoti: AI & Embedded Systems Engineer, Visakhapatnam.">
+    <title>Ritesh Bonthalakoti — Between the Physical & the Digital</title>
+    <meta name="description" content="An interactive 1-page-at-a-time technical book by Ritesh Bonthalakoti: AI & Hardware Engineer, Visakhapatnam.">
 
-    <!-- Editorial Google Fonts: Newsreader (Editorial Serif), Inter (Clean Sans), JetBrains Mono (Book Marginalia) -->
+    <!-- Editorial Fonts: Newsreader (Classical Serif), Plus Jakarta Sans, JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Reading Progress Bar -->
-    <div id="reading-progress"></div>
-
-    <!-- Top Running Header / Folio Bar -->
-    <header class="book-header">
-        <div class="book-container header-inner">
-            <div class="folio-left">
-                <span class="folio-num">FOLIO NO. 01</span>
+    <!-- Top Running Folio / Header -->
+    <header class="book-top-bar">
+        <div class="header-inner">
+            <div class="folio-info">
+                <span class="folio-book">RITESH BONTHALAKOTI</span>
                 <span class="folio-sep">/</span>
-                <span class="folio-title">RITESH BONTHALAKOTI</span>
+                <span class="folio-chapter" id="current-chapter-title">TITLE PAGE</span>
             </div>
-            <div class="folio-center">
-                <span class="edition-tag">BOBA BASH VISAKHAPATNAM EDITION</span>
-            </div>
-            <div class="folio-right">
-                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Paper / Night Reading Mode">
-                    <span class="mode-label">Mode</span>
-                    <span class="mode-icon">◐</span>
+            
+            <div class="top-controls">
+                <!-- Chapter Jump Selector -->
+                <div class="chapter-dropdown-wrapper">
+                    <button id="toc-btn" class="icon-btn" aria-label="Open Table of Contents" title="Table of Contents">
+                        <span class="btn-text">Chapters</span>
+                        <span class="btn-icon">☰</span>
+                    </button>
+                    <div id="toc-menu" class="toc-popover hidden">
+                        <div class="toc-popover-title">TABLE OF CONTENTS</div>
+                        <ul class="toc-popover-list">
+                            <li><button data-goto="1"><span class="toc-idx">01</span> Frontispiece &amp; Title</button></li>
+                            <li><button data-goto="2"><span class="toc-idx">02</span> The Maker's Ledger</button></li>
+                            <li><button data-goto="3"><span class="toc-idx">03</span> Domain Taxonomy</button></li>
+                            <li><button data-goto="4"><span class="toc-idx">04</span> The Apparatus (Projects)</button></li>
+                            <li><button data-goto="5"><span class="toc-idx">05</span> Industry &amp; Fieldwork</button></li>
+                            <li><button data-goto="6"><span class="toc-idx">06</span> Laurels &amp; Colophon</button></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Theme Mode Toggle -->
+                <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme Mode" title="Toggle Paper / Night Mode">
+                    <span class="theme-icon">◐</span>
+                    <span class="theme-text">Mode</span>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Main Book Spine / Page Wrapper -->
-    <main class="book-container book-body">
+    <!-- Main Book Reading Stage -->
+    <div class="book-stage">
+        <!-- Floating Previous Arrow -->
+        <button id="prev-page-arrow" class="turn-arrow arrow-left" aria-label="Previous Page" title="Previous Page (Left Arrow)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
 
-        <!-- Title Page / Frontispiece -->
-        <section class="title-page">
-            <div class="stamp-seal">
-                <span class="seal-text">OFFICIAL HAND-IN</span>
-                <span class="seal-event">VISAKHAPATNAM · 2026</span>
-            </div>
+        <!-- The Book Bound Frame -->
+        <main class="book-frame" id="book-frame">
+            <div class="book-spine-shadow"></div>
 
-            <div class="title-meta">
-                <span class="section-label">A TECHNICAL MONOGRAPH</span>
-                <span class="pub-date">Autumn 2026 · Visakhapatnam, India</span>
-            </div>
-
-            <h1 class="book-title">
-                Between the Physical &amp; the Digital
-            </h1>
-
-            <p class="book-subtitle">
-                A minimal compendium of artificial intelligence, embedded silicon, sensor networks, 
-                and engineered software systems. Written and compiled by <strong>Ritesh Bonthalakoti</strong>.
-            </p>
-
-            <div class="rule-line">
-                <span class="rule-ornament">§</span>
-            </div>
-
-            <!-- Table of Contents / Index -->
-            <nav class="table-of-contents" aria-label="Table of Contents">
-                <div class="toc-header">INDEX RERUM &middot; TABLE OF CHAPTERS</div>
-                <ol class="toc-list">
-                    <li><a href="#prologue"><span class="toc-n">I.</span> <span class="toc-t">Prologue &amp; Origin</span> <span class="toc-dots"></span> <span class="toc-p">p. 01</span></a></li>
-                    <li><a href="#works"><span class="toc-n">II.</span> <span class="toc-t">The Apparatus: Featured Inventions</span> <span class="toc-dots"></span> <span class="toc-p">p. 02</span></a></li>
-                    <li><a href="#fieldwork"><span class="toc-n">III.</span> <span class="toc-t">Chronicles of Industry &amp; Fieldwork</span> <span class="toc-dots"></span> <span class="toc-p">p. 03</span></a></li>
-                    <li><a href="#honors"><span class="toc-n">IV.</span> <span class="toc-t">Laurels, Rank &amp; Distinctions</span> <span class="toc-dots"></span> <span class="toc-p">p. 04</span></a></li>
-                    <li><a href="#colophon"><span class="toc-n">V.</span> <span class="toc-t">Colophon &amp; Correspondence</span> <span class="toc-dots"></span> <span class="toc-p">p. 05</span></a></li>
-                </ol>
-            </nav>
-        </section>
-
-        <!-- Chapter I: Prologue & Background -->
-        <article class="chapter" id="prologue">
-            <div class="chapter-marker">
-                <span class="chapter-roman">CHAPTER I</span>
-                <span class="chapter-subject">ORIGIN &middot; PHILOSOPHY</span>
-            </div>
-
-            <h2 class="chapter-title">The Maker's Ledger</h2>
-
-            <div class="prose">
-                <p class="dropcap-paragraph">
-                    <span class="dropcap">I</span> am Ritesh Bonthalakoti, an Electronics and Communication Engineering student 
-                    based on the coast of Visakhapatnam, India. My engineering work is grounded in a single thesis: that computing 
-                    becomes profound only when logic touches physical matter. From ESP32 bare-metal firmware and low-noise analog sensor 
-                    interfaces to DistilBERT neural classification pipelines, I engineer systems from first principles.
-                </p>
-
-                <p>
-                    Presently pursuing my <strong>B.Tech in ECE</strong> (Lateral Entry) at <em>Alwar College of Engineering</em>, following 
-                    a rigorous foundational diploma in Electronics &amp; Communication from <em>Sanketika Polytechnic College</em>. 
-                    My long-term technical ambition lies squarely within the <strong>Semiconductor Industry</strong> (architecting silicon, 
-                    VLSI pipelines, and edge-AI compute for institutions like NVIDIA, AMD, and Intel).
-                </p>
-
-                <aside class="margin-note">
-                    <span class="note-tag">MARGIN NOTE 01</span>
-                    <strong>Core Philosophy:</strong> Hardware without intelligent software is static metal; software without hardware is an abstract ghost. True engineering lives where the two meet.
-                </aside>
-
-                <div class="key-facts-table">
-                    <div class="fact-row">
-                        <span class="fact-label">Location of Record</span>
-                        <span class="fact-val">Visakhapatnam, Andhra Pradesh, India</span>
+            <!-- Page 1: Frontispiece / Cover -->
+            <section class="book-page active" data-page="1" data-chapter="Frontispiece">
+                <div class="page-content">
+                    <div class="seal-badge">
+                        <span class="seal-top">OFFICIAL HAND-IN</span>
+                        <span class="seal-bot">VISAKHAPATNAM · 2026</span>
                     </div>
-                    <div class="fact-row">
-                        <span class="fact-label">Current Academic Standing</span>
-                        <span class="fact-val">B.Tech 2nd Year &mdash; Electronics &amp; Communication Engineering</span>
+
+                    <div class="page-meta-header">
+                        <span class="meta-tag">A TECHNICAL MONOGRAPH</span>
+                        <span class="meta-date">Autumn 2026</span>
                     </div>
-                    <div class="fact-row">
-                        <span class="fact-label">Hackathons Completed</span>
-                        <span class="fact-val">20+ Competitive National &amp; Global Builds</span>
+
+                    <h1 class="page-title main-title">
+                        Between the Physical &amp; the Digital
+                    </h1>
+
+                    <p class="lead-prose">
+                        A minimal compendium of embedded silicon, artificial intelligence, sensor networks, 
+                        and engineered systems. Authored by <strong>Ritesh Bonthalakoti</strong> for the 
+                        <strong>Hack Club Boba Bash</strong> Visakhapatnam edition.
+                    </p>
+
+                    <div class="book-divider">§</div>
+
+                    <div class="book-toc-card">
+                        <div class="toc-card-header">INDEX RERUM &middot; CHAPTERS</div>
+                        <ol class="toc-card-list">
+                            <li><button class="toc-jump" data-goto="2"><span class="t-num">I.</span> <span class="t-txt">The Maker's Ledger (About &amp; Origin)</span> <span class="t-line"></span> <span class="t-pg">p. 02</span></button></li>
+                            <li><button class="toc-jump" data-goto="3"><span class="t-num">II.</span> <span class="t-txt">Domain Taxonomy (Skills Matrix)</span> <span class="t-line"></span> <span class="t-pg">p. 03</span></button></li>
+                            <li><button class="toc-jump" data-goto="4"><span class="t-num">III.</span> <span class="t-txt">The Apparatus (Featured Inventions)</span> <span class="t-line"></span> <span class="t-pg">p. 04</span></button></li>
+                            <li><button class="toc-jump" data-goto="5"><span class="t-num">IV.</span> <span class="t-txt">Chronicles of Industry (Experience)</span> <span class="t-line"></span> <span class="t-pg">p. 05</span></button></li>
+                            <li><button class="toc-jump" data-goto="6"><span class="t-num">V.</span> <span class="t-txt">Laurels, Colophon &amp; Correspondence</span> <span class="t-line"></span> <span class="t-pg">p. 06</span></button></li>
+                        </ol>
                     </div>
-                    <div class="fact-row">
-                        <span class="fact-label">Projects Shipped</span>
-                        <span class="fact-val">25+ Functional Hardware &amp; Software Systems</span>
-                    </div>
-                    <div class="fact-row">
-                        <span class="fact-label">National Aptitude Standing</span>
-                        <span class="fact-val">Top 0.4% Nationally (AIR 1,435 in AINCAT 2025 out of 360,000+)</span>
+
+                    <div class="begin-read-wrapper">
+                        <button class="btn-turn-primary next-action">
+                            <span>Open Chapter I</span>
+                            <span class="btn-glyph">&rarr;</span>
+                        </button>
                     </div>
                 </div>
 
-                <div class="sub-chapter">
-                    <h3 class="sub-title">Domain Taxonomy</h3>
-                    <p class="sub-intro">A concise taxonomy of tools, protocols, and architectures employed in daily practice:</p>
-                    
-                    <div class="taxonomy-columns">
-                        <div class="taxonomy-col">
-                            <h4>I. Silicon, Embedded &amp; IoT</h4>
-                            <ul>
-                                <li>ESP32 / ESP8266 &middot; Arduino Architecture</li>
-                                <li>Firmware in C &amp; Embedded C++</li>
-                                <li>I2C &middot; SPI &middot; UART Bus Protocols</li>
-                                <li>Analog &amp; Optical Sensors &middot; Relays</li>
-                                <li>Blynk Telemetry &middot; Edge Hardware Automation</li>
-                            </ul>
+                <div class="page-footer">
+                    <span class="folio-mark">Leaf 01</span>
+                    <span class="boba-indicator">🧋 Boba Bash Visakhapatnam</span>
+                    <span class="page-count-mark">1 / 6</span>
+                </div>
+            </section>
+
+            <!-- Page 2: Chapter I - The Maker's Ledger -->
+            <section class="book-page" data-page="2" data-chapter="I. The Maker's Ledger">
+                <div class="page-content">
+                    <div class="chapter-super">CHAPTER I &middot; ORIGIN &amp; PHILOSOPHY</div>
+                    <h2 class="page-title">The Maker's Ledger</h2>
+
+                    <div class="prose-block">
+                        <p class="dropcap-row">
+                            <span class="cap-letter">I</span> am Ritesh Bonthalakoti, an Electronics and Communication Engineering 
+                            student building along the coast of Visakhapatnam, India. My engineering work is grounded in a single thesis: 
+                            that computing becomes profound only when mathematical logic touches the physical realm.
+                        </p>
+
+                        <p>
+                            From low-noise analog sensor frontends and ESP32 bare-metal firmware to DistilBERT neural classification 
+                            pipelines, I design solutions from first physical principles. Currently enrolled in <strong>B.Tech in ECE 
+                            (Lateral Entry)</strong> at <em>Alwar College of Engineering</em>, following a diploma in ECE from 
+                            <em>Sanketika Polytechnic College</em>.
+                        </p>
+
+                        <div class="editorial-sidenote">
+                            <span class="sidenote-label">MARGIN NOTE 01 &middot; LONG-RANGE GOAL</span>
+                            <strong>Semiconductor Industry (NVIDIA / AMD / Intel):</strong> Dedicated to architecting next-generation 
+                            silicon acceleration, VLSI pipelines, and low-latency edge-AI compute units.
                         </div>
-                        <div class="taxonomy-col">
-                            <h4>II. Neural &amp; Applied AI</h4>
-                            <ul>
-                                <li>Python 3 &middot; PyTorch &middot; Hugging Face</li>
-                                <li>DistilBERT Sentence &amp; Ticket Classification</li>
-                                <li>Named Entity Recognition (NER) Metadata</li>
-                                <li>Gemini API Reasoning &amp; Auto-Resolution</li>
-                                <li>AutoML Pipeline Design &middot; Autonomous Agents</li>
-                            </ul>
-                        </div>
-                        <div class="taxonomy-col">
-                            <h4>III. Systems &amp; Web Foundations</h4>
-                            <ul>
-                                <li>TypeScript &middot; JavaScript (ES6+)</li>
-                                <li>HTML5 &middot; Vanilla Semantic CSS3</li>
-                                <li>Supabase with Row Level Security (RLS)</li>
-                                <li>Cloudflare Pages &middot; GitHub Pages Deployment</li>
-                                <li>Linux CLI &middot; Git Version Control</li>
-                            </ul>
+
+                        <div class="ledger-box">
+                            <div class="ledger-row">
+                                <span class="l-key">STATION</span>
+                                <span class="l-val">Visakhapatnam, Andhra Pradesh, India</span>
+                            </div>
+                            <div class="ledger-row">
+                                <span class="l-key">HACKATHONS</span>
+                                <span class="l-val">20+ National &amp; Global Hackathons</span>
+                            </div>
+                            <div class="ledger-row">
+                                <span class="l-key">PROJECTS</span>
+                                <span class="l-val">25+ Functional Hardware &amp; Software Systems Shipped</span>
+                            </div>
+                            <div class="ledger-row">
+                                <span class="l-key">TEAMS LED</span>
+                                <span class="l-val">5+ Multidisciplinary Engineering Teams</span>
+                            </div>
+                            <div class="ledger-row">
+                                <span class="l-key">NATIONAL RANK</span>
+                                <span class="l-val">Top 0.4% Nationally (AIR 1,435 in AINCAT 2025 out of 360,000+)</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </article>
 
-        <!-- Chapter II: The Apparatus (Projects) -->
-        <article class="chapter" id="works">
-            <div class="chapter-marker">
-                <span class="chapter-roman">CHAPTER II</span>
-                <span class="chapter-subject">INVENTIONS &middot; APPARATUS</span>
-            </div>
+                <div class="page-footer">
+                    <span class="folio-mark">Leaf 02</span>
+                    <span class="boba-indicator">Ritesh Bonthalakoti</span>
+                    <span class="page-count-mark">2 / 6</span>
+                </div>
+            </section>
 
-            <h2 class="chapter-title">The Apparatus: Featured Inventions</h2>
-            <p class="chapter-deck">Physical hardware artifacts and intelligent digital systems built, deployed, and tested in the field.</p>
+            <!-- Page 3: Chapter II - Domain Taxonomy -->
+            <section class="book-page" data-page="3" data-chapter="II. Domain Taxonomy">
+                <div class="page-content">
+                    <div class="chapter-super">CHAPTER II &middot; TAXONOMY OF PRACTICE</div>
+                    <h2 class="page-title">Technical Domain Matrix</h2>
+                    <p class="page-lead">A categorized ledger of protocols, architectures, and toolchains deployed across hardware and software.</p>
 
-            <div class="apparatus-catalog">
-                
-                <!-- Apparatus Item 1 -->
-                <section class="apparatus-item">
-                    <div class="item-header">
-                        <div class="item-num">FIG. 2.1</div>
-                        <div class="item-badge prize">★ 1st Prize Winner · ₹10,000 Award</div>
+                    <div class="taxonomy-layout">
+                        <div class="taxonomy-panel">
+                            <div class="panel-header">
+                                <span class="panel-roman">§ 1</span>
+                                <h3 class="panel-name">Silicon, Embedded &amp; IoT</h3>
+                            </div>
+                            <ul class="panel-list">
+                                <li><strong>Microcontrollers:</strong> ESP32, ESP8266, Arduino Platforms</li>
+                                <li><strong>Firmware Engineering:</strong> Bare-metal C, Embedded C++</li>
+                                <li><strong>Bus Protocols:</strong> I2C, SPI, UART, Hardware Interrupts</li>
+                                <li><strong>Hardware Interfacing:</strong> CT Sensors, Relays, Analog Audio, IR Tripwires</li>
+                                <li><strong>Telemetry:</strong> Blynk Cloud, Local State Machines, Edge Automation</li>
+                            </ul>
+                        </div>
+
+                        <div class="taxonomy-panel">
+                            <div class="panel-header">
+                                <span class="panel-roman">§ 2</span>
+                                <h3 class="panel-name">Neural &amp; Machine Intelligence</h3>
+                            </div>
+                            <ul class="panel-list">
+                                <li><strong>Core AI/ML:</strong> Python 3, PyTorch, Hugging Face Transformers</li>
+                                <li><strong>NLP &amp; Classification:</strong> DistilBERT Triage (&lt;100ms Inference)</li>
+                                <li><strong>Metadata Extraction:</strong> Named Entity Recognition (NER)</li>
+                                <li><strong>Vector Deduplication:</strong> Cosine Similarity Matching</li>
+                                <li><strong>Autonomous Agents:</strong> Gemini API Reasoning, AutoML Pipelines</li>
+                            </ul>
+                        </div>
+
+                        <div class="taxonomy-panel">
+                            <div class="panel-header">
+                                <span class="panel-roman">§ 3</span>
+                                <h3 class="panel-name">Systems, Web &amp; Infrastructure</h3>
+                            </div>
+                            <ul class="panel-list">
+                                <li><strong>Web Languages:</strong> Modern TypeScript, JavaScript (ES6+)</li>
+                                <li><strong>UI Styling:</strong> Pure Semantic HTML5, Zero-Dependency CSS3</li>
+                                <li><strong>Backend &amp; Security:</strong> Supabase with Row Level Security (RLS)</li>
+                                <li><strong>Cloud Infrastructure:</strong> Cloudflare Pages, GitHub Pages CI/CD</li>
+                                <li><strong>DevOps &amp; Tools:</strong> Git Version Control, Linux Shell, Docker</li>
+                            </ul>
+                        </div>
                     </div>
-                    <h3 class="item-title">RaceXplorer &mdash; Optical Millisecond Timing Instrument</h3>
-                    <div class="item-meta">Category: Embedded Hardware &middot; Infrared Gates &middot; Arduino C++</div>
-                    <p class="item-text">
-                        A low-cost optical race tracking instrument built to eliminate human stop-watch latency in sprint athletic trials. 
-                        Utilizes paired infrared optical trip-wire sensors wired into a dedicated microcontroller interrupts loop, 
-                        calculating splits with millisecond resolution and writing real-time metrics to an I2C alphanumeric display. 
-                        Awarded First Prize across competitive departments at the annual College Innovation Expo.
-                    </p>
-                    <div class="item-specs">
-                        <span class="spec-label">Architecture:</span> Arduino / Atmel &middot; IR Optocoupler Beam &middot; I2C Bus &middot; Precision Clock Counter
-                    </div>
-                </section>
+                </div>
 
-                <!-- Apparatus Item 2 -->
-                <section class="apparatus-item">
-                    <div class="item-header">
-                        <div class="item-num">FIG. 2.2</div>
-                        <div class="item-badge enterprise">Enterprise AI &middot; Infosys Springboard</div>
-                    </div>
-                    <h3 class="item-title">Helpdesk.ai &mdash; Neural Support Orchestrator</h3>
-                    <div class="item-meta">Category: Machine Learning &middot; DistilBERT &middot; Gemini &middot; Supabase RLS</div>
-                    <p class="item-text">
-                        A multi-tenant enterprise IT ticketing engine designed to classify, prioritize, and auto-resolve inbound corporate inquiries. 
-                        Employs a fine-tuned DistilBERT classification pipeline to categorize tickets in under 100 milliseconds, performs NER metadata 
-                        extraction, identifies duplicate tickets through vector cosine similarity, and delegates auto-resolution tasks to the Gemini API. 
-                        Secured through a 4-tier role-based Supabase Row-Level Security architecture.
-                    </p>
-                    <div class="item-specs">
-                        <span class="spec-label">Architecture:</span> Python / PyTorch &middot; Hugging Face Spaces &middot; Supabase RLS &middot; Stripe Billing
-                    </div>
-                </section>
+                <div class="page-footer">
+                    <span class="folio-mark">Leaf 03</span>
+                    <span class="boba-indicator">Ritesh Bonthalakoti</span>
+                    <span class="page-count-mark">3 / 6</span>
+                </div>
+            </section>
 
-                <!-- Apparatus Item 3 -->
-                <section class="apparatus-item">
-                    <div class="item-header">
-                        <div class="item-num">FIG. 2.3</div>
-                        <div class="item-badge">Acoustic Safety &middot; Public Health</div>
-                    </div>
-                    <h3 class="item-title">Dhwanix &mdash; Noise Pollution Sentinel</h3>
-                    <div class="item-meta">Category: Environmental IoT &middot; Decibel Telemetry &middot; ESP32</div>
-                    <p class="item-text">
-                        An IoT-enabled continuous acoustic monitoring sentinel engineered specifically for quiet zones—including intensive care hospital 
-                        wings and university libraries. Captures analog sound pressure levels, computes weighted decibel metrics, triggers instant visual/auditory 
-                        warnings when legal thresholds are breached, and uploads historical trends over WiFi for environmental auditing.
-                    </p>
-                    <div class="item-specs">
-                        <span class="spec-label">Architecture:</span> ESP32 Microcontroller &middot; Precision Microphone Preamp &middot; Cloud Data Pipeline
-                    </div>
-                </section>
+            <!-- Page 4: Chapter III - The Apparatus (Projects) -->
+            <section class="book-page" data-page="4" data-chapter="III. The Apparatus">
+                <div class="page-content">
+                    <div class="chapter-super">CHAPTER III &middot; INVENTIONS &amp; APPARATUS</div>
+                    <h2 class="page-title">The Apparatus: Featured Works</h2>
 
-                <!-- Apparatus Item 4 -->
-                <section class="apparatus-item">
-                    <div class="item-header">
-                        <div class="item-num">FIG. 2.4</div>
-                        <div class="item-badge">Smart Grid &middot; Predictive AI</div>
+                    <div class="projects-scrollable">
+                        <!-- Item 1 -->
+                        <article class="apparatus-card prize-winner">
+                            <div class="card-topline">
+                                <span class="fig-badge">FIG. 3.1</span>
+                                <span class="trophy-pill">★ 1st Prize Winner · ₹10,000 Cash Award</span>
+                            </div>
+                            <h3 class="apparatus-heading">RaceXplorer &mdash; Optical Millisecond Timing Instrument</h3>
+                            <div class="apparatus-subline">Embedded Hardware &middot; Infrared Gates &middot; Arduino C++</div>
+                            <p class="apparatus-summary">
+                                Eliminates human stopwatch latency in athletic sprint trials using paired optical infrared tripwires. 
+                                Hardware interrupts track splits with millisecond resolution, rendering instantaneous race analytics to an I2C display.
+                            </p>
+                            <div class="apparatus-specs">
+                                <code>SPEC: Arduino Microcontroller + IR Optocouplers + I2C Bus + Hardware Timers</code>
+                            </div>
+                        </article>
+
+                        <!-- Item 2 -->
+                        <article class="apparatus-card">
+                            <div class="card-topline">
+                                <span class="fig-badge">FIG. 3.2</span>
+                                <span class="trophy-pill info-pill">Enterprise AI &middot; Infosys Springboard</span>
+                            </div>
+                            <h3 class="apparatus-heading">Helpdesk.ai &mdash; Neural Support Orchestrator</h3>
+                            <div class="apparatus-subline">DistilBERT &middot; Cosine Deduplication &middot; Gemini &middot; Supabase RLS</div>
+                            <p class="apparatus-summary">
+                                Enterprise IT ticket routing platform. Employs fine-tuned DistilBERT to classify inbound corporate queries in &lt;100ms, 
+                                extracts NER tags, checks duplicate tickets via vector similarity, and delegates auto-resolution to Gemini.
+                            </p>
+                            <div class="apparatus-specs">
+                                <code>SPEC: PyTorch + Hugging Face Spaces + Supabase RLS + Stripe Tiered Subscriptions</code>
+                            </div>
+                        </article>
+
+                        <!-- Item 3 -->
+                        <article class="apparatus-card">
+                            <div class="card-topline">
+                                <span class="fig-badge">FIG. 3.3</span>
+                                <span class="trophy-pill">Acoustic Safety &middot; Public Health</span>
+                            </div>
+                            <h3 class="apparatus-heading">Dhwanix &mdash; Decibel Noise Pollution Sentinel</h3>
+                            <div class="apparatus-subline">ESP32 &middot; Analog Preamp &middot; Cloud Decibel Telemetry</div>
+                            <p class="apparatus-summary">
+                                Continuous noise monitor designed for quiet zones in hospitals and academic libraries. Tracks weighted sound levels, 
+                                flags legal threshold violations with visual alarms, and syncs environmental telemetry over WiFi.
+                            </p>
+                        </article>
+
+                        <!-- Item 4 -->
+                        <article class="apparatus-card">
+                            <div class="card-topline">
+                                <span class="fig-badge">FIG. 3.4</span>
+                                <span class="trophy-pill">Power Electronics &middot; Edge ML</span>
+                            </div>
+                            <h3 class="apparatus-heading">SHEM &mdash; Smart Home Energy Manager</h3>
+                            <div class="apparatus-subline">ESP8266 &middot; Non-Invasive CT Sensing &middot; Gemini Predictive Forecasting</div>
+                            <p class="apparatus-summary">
+                                Precision electrical mains monitor with Gemini predictive models to catch appliance power leaks and automate load-shedding via smartphone.
+                            </p>
+                        </article>
                     </div>
-                    <h3 class="item-title">SHEM &mdash; Smart Home Energy Manager</h3>
-                    <div class="item-meta">Category: Power Electronics &middot; Edge Sensing &middot; Gemini Forecasting</div>
-                    <p class="item-text">
-                        An electrical mains metering and load-distribution ecosystem. Measures real-time current draws via non-invasive CT sensors, 
-                        correlates usage profiles against Gemini predictive forecasting models to detect anomalous appliance power leakage, and allows 
-                        homeowners to shed non-critical loads remotely through smartphone telemetry.
-                    </p>
-                    <div class="item-specs">
-                        <span class="spec-label">Architecture:</span> ESP8266 &middot; Current Transformer Interface &middot; Gemini Analytics &middot; Blynk Protocol
+                </div>
+
+                <div class="page-footer">
+                    <span class="folio-mark">Leaf 04</span>
+                    <span class="boba-indicator">Ritesh Bonthalakoti</span>
+                    <span class="page-count-mark">4 / 6</span>
+                </div>
+            </section>
+
+            <!-- Page 5: Chapter IV - Industry & Fieldwork -->
+            <section class="book-page" data-page="5" data-chapter="IV. Industry & Fieldwork">
+                <div class="page-content">
+                    <div class="chapter-super">CHAPTER IV &middot; CHRONICLES OF FIELDWORK</div>
+                    <h2 class="page-title">Industry &amp; Engineering Stations</h2>
+                    <p class="page-lead">A chronological record of production engineering and executive responsibilities.</p>
+
+                    <div class="chronicle-timeline">
+                        <!-- Station 1 -->
+                        <div class="chronicle-row">
+                            <div class="c-era">2025 &mdash; PRESENT</div>
+                            <div class="c-body">
+                                <h3 class="c-title">Embedded Software Engineer</h3>
+                                <h4 class="c-firm">Dharanova Pvt Ltd</h4>
+                                <p class="c-desc">
+                                    Developing embedded software and firmware for product-grade hardware systems. Engineering intelligent edge features integrating AI workflows directly into microcontroller pipelines.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Station 2 -->
+                        <div class="chronicle-row">
+                            <div class="c-era">2025</div>
+                            <div class="c-body">
+                                <h3 class="c-title">Embedded System Engineer Intern</h3>
+                                <h4 class="c-firm">Gratian Technologies</h4>
+                                <p class="c-desc">
+                                    Prototyped hardware-software integrated systems utilizing Arduino App Labs and modern AI-assisted workflows to accelerate firmware synthesis and verification.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Station 3 -->
+                        <div class="chronicle-row">
+                            <div class="c-era">2024 &mdash; 2025</div>
+                            <div class="c-body">
+                                <h3 class="c-title">AI &amp; Hardware Engineer</h3>
+                                <h4 class="c-firm">PUSULA International Pvt Ltd</h4>
+                                <p class="c-desc">
+                                    Constructed core AI automation pipelines combining ESP32 microcontrollers, edge ML inference, and IoT pipelines in an industrial Robotics &amp; RPA setting.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Station 4 -->
+                        <div class="chronicle-row">
+                            <div class="c-era">2024</div>
+                            <div class="c-body">
+                                <h3 class="c-title">Project Lead &amp; ML Mentor</h3>
+                                <h4 class="c-firm">LearnDepth LLP</h4>
+                                <p class="c-desc">
+                                    Led architectural design for an AutoML pipeline eliminating manual data preprocessing and training steps; mentored junior developers in ML evaluation practices.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Station 5 -->
+                        <div class="chronicle-row">
+                            <div class="c-era">2024</div>
+                            <div class="c-body">
+                                <h3 class="c-title">Enterprise AI Intern (Springboard 6.0)</h3>
+                                <h4 class="c-firm">Infosys Springboard</h4>
+                                <p class="c-desc">
+                                    Architected the DistilBERT model pipeline and Supabase RLS backend for Helpdesk.ai, handling inference deployment on Hugging Face Spaces.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Station 6 -->
+                        <div class="chronicle-row">
+                            <div class="c-era">2023 &mdash; 2024</div>
+                            <div class="c-body">
+                                <h3 class="c-title">Head of Operations</h3>
+                                <h4 class="c-firm">Wission Axis (Visakhapatnam Chapter)</h4>
+                                <p class="c-desc">
+                                    Promoted from Community Manager to Head of Operations. Organised tech founder-student meetups, led regional engineering workshops, and scaled youth entrepreneurship.
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                </section>
+                </div>
 
-                <!-- Apparatus Item 5 -->
-                <section class="apparatus-item">
-                    <div class="item-header">
-                        <div class="item-num">FIG. 2.5</div>
-                        <div class="item-badge">Embedded Automation</div>
+                <div class="page-footer">
+                    <span class="folio-mark">Leaf 05</span>
+                    <span class="boba-indicator">Ritesh Bonthalakoti</span>
+                    <span class="page-count-mark">5 / 6</span>
+                </div>
+            </section>
+
+            <!-- Page 6: Chapter V - Laurels & Colophon -->
+            <section class="book-page" data-page="6" data-chapter="V. Laurels & Colophon">
+                <div class="page-content">
+                    <div class="chapter-super">CHAPTER V &middot; LAURELS &amp; CORRESPONDENCE</div>
+                    <h2 class="page-title">Laurels, Rank &amp; Colophon</h2>
+
+                    <!-- Honors Ledger -->
+                    <div class="honors-card">
+                        <div class="honors-headline">RECORDED MERIT &amp; DISTINCTIONS</div>
+                        
+                        <div class="honor-entry">
+                            <span class="h-year">2026</span>
+                            <div class="h-info">
+                                <strong>Viksit Bharat Young Leaders Dialogue</strong> &mdash; Selected by Ministry of Youth Affairs &amp; Sports, Government of India.
+                            </div>
+                        </div>
+
+                        <div class="honor-entry prize-entry">
+                            <span class="h-year">2025</span>
+                            <div class="h-info">
+                                <strong>1st Prize Winner &middot; College Project Exposition</strong> (₹10,000 Cash Award for RaceXplorer optical timing hardware).
+                            </div>
+                        </div>
+
+                        <div class="honor-entry">
+                            <span class="h-year">2025</span>
+                            <div class="h-info">
+                                <strong>All India Rank 1,435 &middot; AINCAT 2025</strong> (Top 0.4% Nationally across 3.6 Lakh+ engineering candidates).
+                            </div>
+                        </div>
+
+                        <div class="honor-entry">
+                            <span class="h-year">2025</span>
+                            <div class="h-info">
+                                <strong>NASA International Space Apps Challenge</strong> &mdash; National-Level Participant for Earth &amp; Space software.
+                            </div>
+                        </div>
+
+                        <div class="honor-entry">
+                            <span class="h-year">2025</span>
+                            <div class="h-info">
+                                <strong>Rank 120 / 4,000+ &middot; National Entrepreneurship Challenge (NEC)</strong> &mdash; E-Cell, IIT Bombay (Advanced Track).
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="item-title">Futuristic IoT Home Automation System</h3>
-                    <div class="item-meta">Category: Electrical Switching &middot; Microcontroller Firmware &middot; Fail-Safe Logic</div>
-                    <p class="item-text">
-                        A robust, multi-channel household automation terminal. Built with optical relay isolation to prevent electrical back-EMF, 
-                        supporting both cloud-synchronized toggle commands and physical tactile overrides to guarantee uninterrupted local functionality 
-                        during internet dropouts.
-                    </p>
-                    <div class="item-specs">
-                        <span class="spec-label">Architecture:</span> Multi-relay bank &middot; ESP8266 &middot; Local State Machine &middot; Mobile Dashboard
+
+                    <!-- Inquiries & Dossier -->
+                    <div class="correspondence-card">
+                        <div class="c-header">OFFICIAL CORRESPONDENCE DOSSIER</div>
+                        
+                        <div class="dossier-links-grid">
+                            <a href="mailto:riteshbonthalakoti@gmail.com" class="dossier-link">
+                                <span class="d-type">ELECTRONIC MAIL</span>
+                                <span class="d-data">riteshbonthalakoti@gmail.com</span>
+                            </a>
+                            <a href="tel:+918464931322" class="dossier-link">
+                                <span class="d-type">TELEPHONE / WHATSAPP</span>
+                                <span class="d-data">+91 84649 31322</span>
+                            </a>
+                            <a href="https://linkedin.com/in/riteshbonthalakoti" target="_blank" rel="noopener noreferrer" class="dossier-link">
+                                <span class="d-type">PROFESSIONAL NETWORK</span>
+                                <span class="d-data">linkedin.com/in/riteshbonthalakoti &rarr;</span>
+                            </a>
+                            <a href="https://github.com/riteshbonthalakoti" target="_blank" rel="noopener noreferrer" class="dossier-link">
+                                <span class="d-type">SOURCE REPOSITORIES</span>
+                                <span class="d-data">github.com/riteshbonthalakoti &rarr;</span>
+                            </a>
+                            <a href="https://ritesh1918.substack.com" target="_blank" rel="noopener noreferrer" class="dossier-link">
+                                <span class="d-type">SUBSTACK NEWSLETTER</span>
+                                <span class="d-data">Pulse: Silicon &amp; AI Supercycle &rarr;</span>
+                            </a>
+                            <a href="https://riteshbonthalakoti.pages.dev" target="_blank" rel="noopener noreferrer" class="dossier-link">
+                                <span class="d-type">PRIMARY DOMAIN</span>
+                                <span class="d-data">riteshbonthalakoti.pages.dev &rarr;</span>
+                            </a>
+                        </div>
                     </div>
-                </section>
 
-            </div>
-        </article>
-
-        <!-- Chapter III: Chronicles of Fieldwork -->
-        <article class="chapter" id="fieldwork">
-            <div class="chapter-marker">
-                <span class="chapter-roman">CHAPTER III</span>
-                <span class="chapter-subject">INDUSTRY &middot; RESPONSIBILITIES</span>
-            </div>
-
-            <h2 class="chapter-title">Chronicles of Industry &amp; Fieldwork</h2>
-            <p class="chapter-deck">A formal record of engineering stations, corporate research labs, and executive responsibilities held.</p>
-
-            <div class="entry-list">
-                
-                <!-- Entry 1 -->
-                <div class="book-entry">
-                    <div class="entry-timeline">2025 &mdash; PRESENT</div>
-                    <div class="entry-core">
-                        <h3 class="entry-role">Embedded Software Engineer</h3>
-                        <h4 class="entry-firm">Dharanova Pvt Ltd</h4>
-                        <p class="entry-body">
-                            Architecting firmware design, hardware-software integration, and intelligent embedded feature sets for product-grade 
-                            hardware units. Collaborating closely with production engineers to harden microcontroller stability in high-noise environments.
+                    <div class="colophon-seal-area">
+                        <span class="colophon-seal-icon">❦</span>
+                        <p class="colophon-fineprint">
+                            Typeset in <em>Newsreader</em> and <em>JetBrains Mono</em>. Designed as a physical book experience 
+                            with single-leaf paging. Handcrafted with pride for Hack Club Boba Bash Visakhapatnam &middot; October 2026.
                         </p>
                     </div>
                 </div>
 
-                <!-- Entry 2 -->
-                <div class="book-entry">
-                    <div class="entry-timeline">2025</div>
-                    <div class="entry-core">
-                        <h3 class="entry-role">Embedded System Engineer Intern</h3>
-                        <h4 class="entry-firm">Gratian Technologies</h4>
-                        <p class="entry-body">
-                            Engineered prototype hardware platforms with current-generation Arduino microcontrollers and Arduino App Labs. Accelerated 
-                            firmware synthesis and edge-validation workflows by integrating modern LLM-assisted pipelines into the embedded engineering loop.
-                        </p>
-                    </div>
+                <div class="page-footer">
+                    <span class="folio-mark">Leaf 06 (Finis)</span>
+                    <span class="boba-indicator">Ritesh Bonthalakoti</span>
+                    <span class="page-count-mark">6 / 6</span>
                 </div>
+            </section>
+        </main>
 
-                <!-- Entry 3 -->
-                <div class="book-entry">
-                    <div class="entry-timeline">2024 &mdash; 2025</div>
-                    <div class="entry-core">
-                        <h3 class="entry-role">AI &amp; Hardware Engineer</h3>
-                        <h4 class="entry-firm">PUSULA International Pvt Ltd</h4>
-                        <p class="entry-body">
-                            Built industrial automation solutions bridging physical ESP32 hardware and edge machine-learning pipelines. Gained direct 
-                            operational experience across Robotics and Robotic Process Automation (RPA) within industrial production facilities.
-                        </p>
-                    </div>
-                </div>
+        <!-- Floating Next Arrow -->
+        <button id="next-page-arrow" class="turn-arrow arrow-right next-action" aria-label="Next Page" title="Next Page (Right Arrow)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+    </div>
 
-                <!-- Entry 4 -->
-                <div class="book-entry">
-                    <div class="entry-timeline">2024</div>
-                    <div class="entry-core">
-                        <h3 class="entry-role">Project Lead &amp; ML Mentor</h3>
-                        <h4 class="entry-firm">LearnDepth LLP</h4>
-                        <p class="entry-body">
-                            Spearheaded the architectural blueprint for an end-to-end AutoML pipeline that automates dataset cleaning, feature extraction, 
-                            and model deployment. Mentored cohorts of aspiring developers on statistical evaluation and ML engineering rigor.
-                        </p>
-                    </div>
-                </div>
+    <!-- Bottom Page Navigation Toolbar -->
+    <nav class="book-nav-toolbar" aria-label="Book Navigation Controls">
+        <div class="toolbar-inner">
+            <button id="btn-prev" class="page-nav-btn" aria-label="Turn to previous leaf">
+                <span class="nav-arrow">&larr;</span>
+                <span class="nav-label">Previous Leaf</span>
+            </button>
 
-                <!-- Entry 5 -->
-                <div class="book-entry">
-                    <div class="entry-timeline">2024</div>
-                    <div class="entry-core">
-                        <h3 class="entry-role">Enterprise AI Intern (Springboard 6.0)</h3>
-                        <h4 class="entry-firm">Infosys Springboard</h4>
-                        <p class="entry-body">
-                            Architected and delivered the core inference backbone for Helpdesk.ai. Handled Hugging Face Spaces deployment, Supabase 
-                            database migrations, and vector similarity duplicate deduplication.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Entry 6 -->
-                <div class="book-entry">
-                    <div class="entry-timeline">2023 &mdash; 2024</div>
-                    <div class="entry-core">
-                        <h3 class="entry-role">Head of Operations</h3>
-                        <h4 class="entry-firm">Wission Axis (Visakhapatnam Chapter)</h4>
-                        <p class="entry-body">
-                            Promoted from regional Community Manager to Head of Operations. Curated networking forums connecting student engineers 
-                            with technology founders, oversaw workshop operations, and stimulated the regional entrepreneurial ecosystem.
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-        </article>
-
-        <!-- Chapter IV: Laurels & Distinctions -->
-        <article class="chapter" id="honors">
-            <div class="chapter-marker">
-                <span class="chapter-roman">CHAPTER IV</span>
-                <span class="chapter-subject">MERIT &middot; RECOGNITIONS</span>
+            <!-- Page Indicators / Leaf dots -->
+            <div class="leaf-indicators" id="leaf-indicators">
+                <button class="leaf-dot active" data-goto="1" title="Leaf 1: Cover"></button>
+                <button class="leaf-dot" data-goto="2" title="Leaf 2: The Maker's Ledger"></button>
+                <button class="leaf-dot" data-goto="3" title="Leaf 3: Domain Taxonomy"></button>
+                <button class="leaf-dot" data-goto="4" title="Leaf 4: The Apparatus"></button>
+                <button class="leaf-dot" data-goto="5" title="Leaf 5: Fieldwork"></button>
+                <button class="leaf-dot" data-goto="6" title="Leaf 6: Laurels & Colophon"></button>
             </div>
 
-            <h2 class="chapter-title">Laurels, Rank &amp; Distinctions</h2>
-            <p class="chapter-deck">Certifications of merit awarded by national agencies, ministries, and academic institutions.</p>
-
-            <div class="honor-ledger">
-                
-                <div class="honor-line">
-                    <div class="honor-col-year">2026</div>
-                    <div class="honor-col-body">
-                        <span class="honor-title">Selected Delegate &middot; Viksit Bharat Young Leaders Dialogue</span>
-                        <span class="honor-authority">Ministry of Youth Affairs &amp; Sports, Government of India</span>
-                        <p class="honor-desc">Selected by the central government to represent the nation's youth in high-level policy and technological dialogue.</p>
-                    </div>
-                </div>
-
-                <div class="honor-line highlight-honor">
-                    <div class="honor-col-year">2025</div>
-                    <div class="honor-col-body">
-                        <span class="honor-title">First Prize Winner &middot; College Project Exposition</span>
-                        <span class="honor-authority">State Engineering Expo &middot; ₹10,000 Cash Purse</span>
-                        <p class="honor-desc">Awarded first prize in the electrical and engineering division for the RaceXplorer optical race instrument.</p>
-                    </div>
-                </div>
-
-                <div class="honor-line">
-                    <div class="honor-col-year">2025</div>
-                    <div class="honor-col-body">
-                        <span class="honor-title">All India Rank 1,435 &middot; National Aptitude Examination (AINCAT)</span>
-                        <span class="honor-authority">National Council for Aptitude Testing &middot; Top 0.4% Nationally</span>
-                        <p class="honor-desc">Ranked 1,435th among 360,000+ participating engineering candidates nationwide.</p>
-                    </div>
-                </div>
-
-                <div class="honor-line">
-                    <div class="honor-col-year">2025</div>
-                    <div class="honor-col-body">
-                        <span class="honor-title">National Competitor &middot; NASA International Space Apps Challenge</span>
-                        <span class="honor-authority">National Aeronautics and Space Administration (NASA)</span>
-                        <p class="honor-desc">Selected as national-level participant to build open-source collaborative software for Earth and space observation.</p>
-                    </div>
-                </div>
-
-                <div class="honor-line">
-                    <div class="honor-col-year">2025</div>
-                    <div class="honor-col-body">
-                        <span class="honor-title">Rank 120 / 4,000+ &middot; National Entrepreneurship Challenge (NEC)</span>
-                        <span class="honor-authority">E-Cell, Indian Institute of Technology Bombay (IIT Bombay)</span>
-                        <p class="honor-desc">Placed in the top tier of the Advanced Track representing Sanketika Polytechnic College across 4,000+ institutional registrations.</p>
-                    </div>
-                </div>
-
-                <div class="honor-line">
-                    <div class="honor-col-year">2024</div>
-                    <div class="honor-col-body">
-                        <span class="honor-title">Appointed Campus Ambassador</span>
-                        <span class="honor-authority">E-Cell, IIT Bombay</span>
-                        <p class="honor-desc">Represented IIT Bombay's flagship entrepreneurship initiative across engineering campuses in coastal Andhra Pradesh.</p>
-                    </div>
-                </div>
-
-            </div>
-        </article>
-
-        <!-- Chapter V: Colophon & Inquiries -->
-        <article class="chapter" id="colophon">
-            <div class="chapter-marker">
-                <span class="chapter-roman">CHAPTER V</span>
-                <span class="chapter-subject">COLOPHON &middot; CORRESPONDENCE</span>
+            <div class="page-readout">
+                <span class="cur-page-num" id="cur-page-num">Leaf 1</span>
+                <span class="page-total">of 6</span>
             </div>
 
-            <h2 class="chapter-title">Colophon &amp; Correspondence</h2>
-            <p class="chapter-deck">For collaborations in embedded silicon, edge ML architecture, or technical inquiries.</p>
-
-            <div class="epistle-box">
-                <p>
-                    I welcome serious correspondences concerning semiconductor architecture, firmware engineering, 
-                    hackathon mentorship, and technical partnerships. All dispatches are reviewed personally.
-                </p>
-
-                <div class="dossier-grid">
-                    <div class="dossier-cell">
-                        <span class="d-label">ELECTRONIC DISPATCH</span>
-                        <a href="mailto:riteshbonthalakoti@gmail.com" class="d-val">riteshbonthalakoti@gmail.com</a>
-                    </div>
-                    <div class="dossier-cell">
-                        <span class="d-label">TELECOMMUNICATION</span>
-                        <a href="tel:+918464931322" class="d-val">+91 84649 31322</a>
-                    </div>
-                    <div class="dossier-cell">
-                        <span class="d-label">PROFESSIONAL DOSSIER</span>
-                        <a href="https://linkedin.com/in/riteshbonthalakoti" target="_blank" rel="noopener noreferrer" class="d-val">linkedin.com/in/riteshbonthalakoti &rarr;</a>
-                    </div>
-                    <div class="dossier-cell">
-                        <span class="d-label">OPEN-SOURCE CODEBASE</span>
-                        <a href="https://github.com/riteshbonthalakoti" target="_blank" rel="noopener noreferrer" class="d-val">github.com/riteshbonthalakoti &rarr;</a>
-                    </div>
-                    <div class="dossier-cell">
-                        <span class="d-label">PERIODICAL JOURNAL</span>
-                        <a href="https://ritesh1918.substack.com" target="_blank" rel="noopener noreferrer" class="d-val">ritesh1918.substack.com (Pulse) &rarr;</a>
-                    </div>
-                    <div class="dossier-cell">
-                        <span class="d-label">PRIMARY PORTFOLIO</span>
-                        <a href="https://riteshbonthalakoti.pages.dev" target="_blank" rel="noopener noreferrer" class="d-val">riteshbonthalakoti.pages.dev &rarr;</a>
-                    </div>
-                </div>
-
-                <div class="colophon-notes">
-                    <p class="c-lead"><strong>COLOPHON</strong></p>
-                    <p>
-                        This publication was typeset in <em>Newsreader</em> (a variable optical serif designed by Production Type for high-legibility digital book reading), 
-                        <em>Plus Jakarta Sans</em>, and <em>JetBrains Mono</em>. Styled with pure, hand-written CSS without frameworks or external tracking scripts. 
-                        Hosted and served automatically via GitHub Pages from repository <code>riteshbonthalakoti/my-site</code>.
-                    </p>
-                    <p class="c-signature">
-                        Visakhapatnam, Andhra Pradesh, India &middot; October 2026
-                    </p>
-                </div>
-            </div>
-        </article>
-
-    </main>
-
-    <!-- Bottom Book Footer -->
-    <footer class="book-footer">
-        <div class="book-container footer-layout">
-            <span class="f-leaf">❦</span>
-            <p>&copy; 2026 Ritesh Bonthalakoti. Handcrafted for Hack Club Boba Bash Visakhapatnam.</p>
-            <a href="#prologue" class="back-to-top">&uarr; Return to Title Folio</a>
+            <button id="btn-next" class="page-nav-btn next-action" aria-label="Turn to next leaf">
+                <span class="nav-label">Next Leaf</span>
+                <span class="nav-arrow">&rarr;</span>
+            </button>
         </div>
-    </footer>
+    </nav>
 
     <script src="script.js"></script>
 </body>

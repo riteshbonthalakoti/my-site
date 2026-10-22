@@ -1,145 +1,139 @@
 /* ==========================================================================
-   RITESH BONTHALAKOTI — A TECHNICAL MONOGRAPH
-   Design Language: Minimalist Editorial, Book Typographic Measure, Dual Palette
+   RITESH BONTHALAKOTI — 1-PAGE-AT-A-TIME INTERACTIVE BOOK MONOGRAPH
+   Design System: Physical Book Metaphor, 3D Page Transitions, Dual Palette
    ========================================================================== */
 
-/* 1. CSS Custom Properties & Book Themes */
+/* 1. Root & Color Themes */
 :root, [data-theme="paper"] {
-    --bg-paper: #fbf9f4;
-    --bg-page: #fbf9f4;
-    --bg-surface: #f4efe6;
-    --bg-surface-subtle: #efe9de;
-    --border-rule: #e5ded3;
-    --border-strong: #1c1917;
+    --bg-desktop: #ece6da;
+    --bg-page: #fdfbf7;
+    --bg-page-alt: #f4efe6;
+    --bg-card: #f7f3eb;
+    
+    --border-rule: #e5ded2;
+    --border-subtle: #eee7db;
+    --border-dark: #292524;
     
     --ink-primary: #1c1917;
-    --ink-secondary: #57534e;
+    --ink-secondary: #44403c;
     --ink-muted: #78716c;
     --ink-faint: #a8a29e;
     
-    --accent-mark: #92400e; /* Warm Boba Amber */
+    --accent-mark: #92400e; /* Boba Amber */
     --accent-tint: rgba(146, 64, 14, 0.08);
+    --shadow-book: 0 14px 40px -10px rgba(78, 62, 42, 0.22), 0 2px 8px rgba(78, 62, 42, 0.08);
+    --shadow-page-edge: -15px 0 25px -10px rgba(0, 0, 0, 0.05) inset;
     
-    --font-serif: 'Newsreader', Georgia, Cambria, 'Times New Roman', serif;
-    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-serif: 'Newsreader', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
-    
-    --page-width: 820px;
 }
 
 [data-theme="night"] {
-    --bg-paper: #12151a;
-    --bg-page: #12151a;
-    --bg-surface: #1a1e24;
-    --bg-surface-subtle: #22272f;
-    --border-rule: #2a303a;
-    --border-strong: #e2e8f0;
+    --bg-desktop: #0a0d11;
+    --bg-page: #13171f;
+    --bg-page-alt: #1a202c;
+    --bg-card: #171d27;
+    
+    --border-rule: #2a3342;
+    --border-subtle: #202733;
+    --border-dark: #e2e8f0;
     
     --ink-primary: #e6edf3;
-    --ink-secondary: #9aa4b2;
-    --ink-muted: #717d8e;
-    --ink-faint: #4b5563;
+    --ink-secondary: #9aa7b8;
+    --ink-muted: #6b7787;
+    --ink-faint: #475364;
     
     --accent-mark: #fbbf24;
     --accent-tint: rgba(251, 191, 36, 0.12);
+    --shadow-book: 0 16px 45px -10px rgba(0, 0, 0, 0.8);
+    --shadow-page-edge: -15px 0 25px -10px rgba(0, 0, 0, 0.4) inset;
 }
 
-/* 2. Reset & Reading Measure */
+/* 2. Base Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
-    font-size: 17px;
-    background-color: var(--bg-paper);
+html, body {
+    height: 100%;
 }
 
 body {
-    font-family: var(--font-serif);
-    background-color: var(--bg-paper);
+    background-color: var(--bg-desktop);
     color: var(--ink-primary);
-    line-height: 1.75;
+    font-family: var(--font-serif);
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    transition: background-color 0.25s ease, color 0.25s ease;
-    padding-bottom: 80px;
 }
 
-/* 3. Reading Progress Indicator */
-#reading-progress {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 3px;
-    background: var(--accent-mark);
-    width: 0%;
-    z-index: 999;
-    transition: width 0.1s ease-out;
-}
-
-/* 4. Book Container */
-.book-container {
-    max-width: var(--page-width);
-    margin: 0 auto;
-    padding: 0 32px;
-}
-
-/* 5. Header / Running Folio Bar */
-.book-header {
+/* 3. Top Running Header */
+.book-top-bar {
+    background-color: var(--bg-page);
     border-bottom: 1px solid var(--border-rule);
-    padding: 14px 0;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
+    height: 52px;
+    display: flex;
+    align-items: center;
     position: sticky;
     top: 0;
-    background-color: var(--bg-paper);
-    z-index: 50;
-    transition: background-color 0.25s ease;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    transition: background-color 0.3s ease;
 }
 
 .header-inner {
+    width: 100%;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
 }
 
-.folio-left {
+.folio-info {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: var(--ink-secondary);
+    letter-spacing: 0.06em;
 }
 
-.folio-num {
-    font-weight: 500;
+.folio-book {
+    font-weight: 600;
+    color: var(--ink-primary);
 }
 
 .folio-sep {
     color: var(--ink-faint);
 }
 
-.folio-title {
-    font-weight: 600;
-    color: var(--ink-primary);
-}
-
-.edition-tag {
+.folio-chapter {
     color: var(--accent-mark);
     font-weight: 500;
+    text-transform: uppercase;
 }
 
-.theme-btn {
-    background: var(--bg-surface);
+.top-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.icon-btn {
+    background: var(--bg-page-alt);
     border: 1px solid var(--border-rule);
     color: var(--ink-secondary);
-    padding: 4px 10px;
+    padding: 5px 12px;
     border-radius: 4px;
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
@@ -147,676 +141,929 @@ body {
     transition: all 0.2s ease;
 }
 
-.theme-btn:hover {
+.icon-btn:hover {
     color: var(--ink-primary);
-    border-color: var(--ink-secondary);
+    border-color: var(--ink-muted);
 }
 
-/* 6. Title Page / Frontispiece */
-.title-page {
-    padding: 70px 0 60px;
+/* Popover Chapter Selector */
+.chapter-dropdown-wrapper {
+    position: relative;
+}
+
+.toc-popover {
+    position: absolute;
+    top: 38px;
+    right: 0;
+    width: 260px;
+    background: var(--bg-page);
+    border: 1px solid var(--border-rule);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    padding: 14px;
+    z-index: 200;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.toc-popover.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-8px);
+}
+
+.toc-popover-title {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
     border-bottom: 1px solid var(--border-rule);
+    padding-bottom: 8px;
+    margin-bottom: 8px;
 }
 
-.stamp-seal {
+.toc-popover-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.toc-popover-list button {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 7px 10px;
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    color: var(--ink-primary);
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.15s ease;
+}
+
+.toc-popover-list button:hover {
+    background: var(--bg-page-alt);
+    color: var(--accent-mark);
+}
+
+.toc-idx {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-muted);
+}
+
+/* 4. Book Stage & Physical Bound Frame */
+.book-stage {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 16px;
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.turn-arrow {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--bg-page);
+    border: 1px solid var(--border-rule);
+    color: var(--ink-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 10;
+    flex-shrink: 0;
+}
+
+.turn-arrow:hover {
+    color: var(--accent-mark);
+    border-color: var(--accent-mark);
+    transform: scale(1.08);
+}
+
+.turn-arrow:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+    transform: none;
+    border-color: var(--border-rule);
+    color: var(--ink-muted);
+}
+
+.arrow-left {
+    margin-right: 20px;
+}
+
+.arrow-right {
+    margin-left: 20px;
+}
+
+/* 5. The Book Frame (The Page Holder) */
+.book-frame {
+    width: 100%;
+    max-width: 820px;
+    min-height: 640px;
+    background-color: var(--bg-page);
+    border: 1px solid var(--border-rule);
+    border-radius: 6px;
+    box-shadow: var(--shadow-book);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    perspective: 1200px;
+}
+
+/* Subtle book spine binding on the left */
+.book-spine-shadow {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 24px;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.06), transparent);
+    pointer-events: none;
+    z-index: 20;
+}
+
+/* 6. Individual Book Pages & Page Turn Transitions */
+.book-page {
+    width: 100%;
+    min-height: 640px;
+    padding: 44px 50px 30px;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    opacity: 0;
+    transform-origin: left center;
+    transform: translateX(40px) rotateY(-3deg);
+    transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    position: relative;
+    box-shadow: var(--shadow-page-edge);
+}
+
+.book-page.active {
+    display: flex;
+    opacity: 1;
+    transform: translateX(0) rotateY(0deg);
+}
+
+/* Smooth exit classes applied by script during turns */
+.book-page.turning-left-out {
+    display: flex;
+    opacity: 0;
+    transform: translateX(-50px) rotateY(5deg);
+}
+
+.book-page.turning-right-out {
+    display: flex;
+    opacity: 0;
+    transform: translateX(50px) rotateY(-5deg);
+}
+
+.page-content {
+    flex: 1;
+}
+
+/* 7. Page Footer / Folio */
+.page-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 24px;
+    margin-top: 30px;
+    border-top: 1px solid var(--border-rule);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-muted);
+}
+
+.folio-mark {
+    letter-spacing: 0.05em;
+}
+
+.boba-indicator {
+    color: var(--accent-mark);
+    font-weight: 500;
+}
+
+.page-count-mark {
+    font-weight: 600;
+}
+
+/* 8. Page 1: Frontispiece / Cover Styles */
+.seal-badge {
     display: inline-flex;
     flex-direction: column;
     border: 2px solid var(--accent-mark);
-    padding: 6px 14px;
+    padding: 5px 12px;
     font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     letter-spacing: 0.12em;
     color: var(--accent-mark);
-    margin-bottom: 28px;
     border-radius: 2px;
+    margin-bottom: 20px;
 }
 
-.seal-text {
+.seal-top {
     font-weight: 700;
 }
 
-.seal-event {
-    opacity: 0.85;
-}
-
-.title-meta {
+.page-meta-header {
     font-family: var(--font-mono);
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     color: var(--ink-muted);
     letter-spacing: 0.1em;
-    margin-bottom: 16px;
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
+    margin-bottom: 14px;
 }
 
-.book-title {
-    font-size: clamp(2.3rem, 5vw, 3.4rem);
-    font-weight: 400;
+.main-title {
+    font-size: clamp(2.2rem, 4.5vw, 3.2rem) !important;
+    font-weight: 400 !important;
+    font-style: italic;
     line-height: 1.15;
     letter-spacing: -0.02em;
-    margin-bottom: 22px;
-    font-style: italic;
+    margin-bottom: 16px !important;
 }
 
-.book-subtitle {
-    font-family: var(--font-serif);
-    font-size: 1.25rem;
+.lead-prose {
+    font-size: 1.18rem;
     line-height: 1.7;
     color: var(--ink-secondary);
-    max-width: 680px;
-    margin-bottom: 36px;
+    max-width: 650px;
+    margin-bottom: 24px;
 }
 
-.book-subtitle strong {
+.lead-prose strong {
     color: var(--ink-primary);
     font-weight: 600;
 }
 
-.rule-line {
+.book-divider {
     text-align: center;
+    color: var(--ink-muted);
+    font-size: 1.1rem;
+    margin: 20px 0;
     position: relative;
-    margin: 40px 0;
 }
 
-.rule-line::before {
+.book-divider::before, .book-divider::after {
     content: '';
     position: absolute;
     top: 50%;
-    left: 0;
-    right: 0;
+    width: 40%;
     height: 1px;
     background: var(--border-rule);
 }
 
-.rule-ornament {
-    position: relative;
-    background: var(--bg-paper);
-    padding: 0 16px;
-    font-family: var(--font-serif);
-    font-size: 1.2rem;
-    color: var(--ink-muted);
-}
+.book-divider::before { left: 0; }
+.book-divider::after { right: 0; }
 
-/* 7. Table of Contents / Index */
-.table-of-contents {
-    background-color: var(--bg-surface);
+.book-toc-card {
+    background: var(--bg-card);
     border: 1px solid var(--border-rule);
     border-radius: 4px;
-    padding: 24px 30px;
-    margin: 20px 0 10px;
+    padding: 18px 24px;
+    margin-bottom: 24px;
 }
 
-.toc-header {
+.toc-card-header {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     letter-spacing: 0.1em;
     color: var(--ink-muted);
-    margin-bottom: 16px;
+    margin-bottom: 10px;
     border-bottom: 1px solid var(--border-rule);
-    padding-bottom: 8px;
+    padding-bottom: 6px;
 }
 
-.toc-list {
+.toc-card-list {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
 }
 
-.toc-list li a {
+.toc-jump {
+    width: 100%;
     display: flex;
     align-items: baseline;
-    color: var(--ink-primary);
-    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
     font-family: var(--font-serif);
-    font-size: 1.05rem;
+    font-size: 0.98rem;
+    color: var(--ink-primary);
+    text-align: left;
     transition: color 0.15s ease;
 }
 
-.toc-list li a:hover {
+.toc-jump:hover {
     color: var(--accent-mark);
 }
 
-.toc-n {
+.t-num {
     font-family: var(--font-mono);
-    font-size: 0.85rem;
-    width: 32px;
+    font-size: 0.8rem;
+    width: 28px;
     color: var(--ink-muted);
 }
 
-.toc-t {
-    flex-shrink: 0;
-}
-
-.toc-dots {
+.t-line {
     flex-grow: 1;
     border-bottom: 1px dotted var(--border-rule);
-    margin: 0 12px;
+    margin: 0 10px;
     height: 1px;
 }
 
-.toc-p {
+.t-pg {
     font-family: var(--font-mono);
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     color: var(--ink-muted);
 }
 
-/* 8. Chapters & Prose */
-.chapter {
-    padding: 70px 0;
-    border-bottom: 1px solid var(--border-rule);
+.begin-read-wrapper {
+    display: flex;
+    justify-content: flex-end;
 }
 
-.chapter-marker {
-    display: flex;
+.btn-turn-primary {
+    background: var(--accent-mark);
+    color: #ffffff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 4px;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
+    box-shadow: 0 4px 14px rgba(146, 64, 14, 0.25);
+    transition: all 0.2s ease;
+}
+
+.btn-turn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(146, 64, 14, 0.35);
+}
+
+/* 9. Shared Page Typography */
+.chapter-super {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     letter-spacing: 0.12em;
     color: var(--accent-mark);
+    margin-bottom: 8px;
+}
+
+.page-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.3rem);
+    font-weight: 500;
+    line-height: 1.25;
     margin-bottom: 14px;
 }
 
-.chapter-roman {
-    font-weight: 700;
+.page-lead {
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--ink-secondary);
+    margin-bottom: 22px;
+    max-width: 660px;
 }
 
-.chapter-title {
-    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-    font-weight: 500;
-    line-height: 1.25;
-    letter-spacing: -0.01em;
+.prose-block p {
+    font-size: 1.02rem;
+    line-height: 1.8;
+    color: var(--ink-secondary);
     margin-bottom: 16px;
 }
 
-.chapter-deck {
-    font-size: 1.15rem;
-    font-style: italic;
-    color: var(--ink-secondary);
-    margin-bottom: 36px;
-    max-width: 680px;
-}
-
-.prose p {
-    font-size: 1.08rem;
-    line-height: 1.85;
-    color: var(--ink-secondary);
-    margin-bottom: 22px;
-}
-
-.prose p strong {
+.prose-block p strong {
     color: var(--ink-primary);
     font-weight: 600;
 }
 
-.dropcap-paragraph {
+.dropcap-row {
     position: relative;
 }
 
-.dropcap {
+.cap-letter {
     float: left;
     font-family: var(--font-serif);
-    font-size: 4.2rem;
-    line-height: 0.85;
+    font-size: 3.8rem;
+    line-height: 0.82;
     padding-top: 4px;
-    padding-right: 12px;
-    padding-bottom: 2px;
+    padding-right: 10px;
     color: var(--ink-primary);
-    font-weight: 500;
 }
 
-.margin-note {
-    background-color: var(--bg-surface);
+.editorial-sidenote {
+    background-color: var(--bg-card);
     border-left: 3px solid var(--accent-mark);
-    padding: 16px 20px;
-    margin: 30px 0;
-    font-size: 0.95rem;
-    line-height: 1.65;
+    padding: 12px 18px;
+    margin: 20px 0;
+    font-size: 0.92rem;
+    line-height: 1.6;
     color: var(--ink-primary);
 }
 
-.note-tag {
+.sidenote-label {
     display: block;
     font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     letter-spacing: 0.1em;
     color: var(--accent-mark);
-    margin-bottom: 6px;
+    margin-bottom: 4px;
 }
 
-/* Key Facts Ledger */
-.key-facts-table {
-    margin: 36px 0;
+/* Ledger Box */
+.ledger-box {
+    margin-top: 20px;
     border: 1px solid var(--border-rule);
     border-radius: 4px;
-    overflow: hidden;
-    background-color: var(--bg-surface);
+    background: var(--bg-card);
 }
 
-.fact-row {
+.ledger-row {
     display: flex;
     justify-content: space-between;
-    padding: 12px 18px;
+    padding: 9px 16px;
     border-bottom: 1px solid var(--border-rule);
-    font-size: 0.92rem;
-    gap: 16px;
+    font-size: 0.88rem;
+    gap: 12px;
 }
 
-.fact-row:last-child {
+.ledger-row:last-child {
     border-bottom: none;
 }
 
-.fact-label {
+.l-key {
     font-family: var(--font-mono);
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     color: var(--ink-muted);
     letter-spacing: 0.05em;
     flex-shrink: 0;
 }
 
-.fact-val {
+.l-val {
     font-family: var(--font-sans);
     font-weight: 600;
     color: var(--ink-primary);
     text-align: right;
 }
 
-/* Taxonomy Columns */
-.sub-chapter {
-    margin-top: 45px;
-    padding-top: 30px;
-    border-top: 1px solid var(--border-rule);
+/* 10. Page 3: Taxonomy */
+.taxonomy-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 10px;
 }
 
-.sub-title {
-    font-size: 1.4rem;
-    font-weight: 500;
-    margin-bottom: 8px;
+.taxonomy-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border-rule);
+    border-radius: 4px;
+    padding: 16px 20px;
 }
 
-.sub-intro {
-    font-size: 1rem;
-    color: var(--ink-muted);
-    margin-bottom: 24px;
-}
-
-.taxonomy-columns {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-}
-
-.taxonomy-col h4 {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    letter-spacing: 0.08em;
-    color: var(--accent-mark);
+.panel-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
     border-bottom: 1px solid var(--border-rule);
-    padding-bottom: 8px;
-    margin-bottom: 12px;
+    padding-bottom: 6px;
 }
 
-.taxonomy-col ul {
+.panel-roman {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent-mark);
+    font-weight: 600;
+}
+
+.panel-name {
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.panel-list {
     list-style: none;
     font-family: var(--font-sans);
     font-size: 0.85rem;
-    line-height: 1.8;
+    line-height: 1.7;
     color: var(--ink-secondary);
 }
 
-.taxonomy-col ul li {
+.panel-list li {
     padding-left: 14px;
     position: relative;
+    margin-bottom: 4px;
 }
 
-.taxonomy-col ul li::before {
+.panel-list li::before {
     content: '—';
     position: absolute;
     left: 0;
     color: var(--ink-faint);
 }
 
-/* 9. Apparatus / Inventions Catalog */
-.apparatus-catalog {
+/* 11. Page 4: Apparatus (Projects) */
+.projects-scrollable {
     display: flex;
     flex-direction: column;
-    gap: 36px;
+    gap: 18px;
+    max-height: 480px;
+    overflow-y: auto;
+    padding-right: 8px;
 }
 
-.apparatus-item {
-    background-color: var(--bg-surface);
+.projects-scrollable::-webkit-scrollbar {
+    width: 5px;
+}
+
+.projects-scrollable::-webkit-scrollbar-thumb {
+    background: var(--border-rule);
+    border-radius: 4px;
+}
+
+.apparatus-card {
+    background: var(--bg-card);
     border: 1px solid var(--border-rule);
     border-radius: 4px;
-    padding: 28px 32px;
-    transition: border-color 0.2s ease;
+    padding: 20px 24px;
 }
 
-.apparatus-item:hover {
-    border-color: var(--ink-muted);
+.apparatus-card.prize-winner {
+    border-color: var(--accent-mark);
+    background: linear-gradient(135deg, var(--accent-tint), var(--bg-card));
 }
 
-.item-header {
+.card-topline {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
-.item-num {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    color: var(--ink-muted);
-}
-
-.item-badge {
+.fig-badge {
     font-family: var(--font-mono);
     font-size: 0.72rem;
-    padding: 3px 10px;
+    color: var(--ink-muted);
+}
+
+.trophy-pill {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 3px 8px;
     border-radius: 3px;
-    background: var(--bg-surface-subtle);
-    border: 1px solid var(--border-rule);
-    color: var(--ink-secondary);
-}
-
-.item-badge.prize {
     background: var(--accent-tint);
-    border-color: var(--accent-mark);
+    border: 1px solid var(--accent-mark);
     color: var(--accent-mark);
-    font-weight: 600;
 }
 
-.item-title {
-    font-size: 1.45rem;
-    font-weight: 500;
-    margin-bottom: 6px;
-    color: var(--ink-primary);
-}
-
-.item-meta {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--ink-muted);
-    margin-bottom: 16px;
-}
-
-.item-text {
-    font-size: 1.02rem;
-    line-height: 1.8;
+.trophy-pill.info-pill {
+    background: var(--bg-page-alt);
+    border-color: var(--border-rule);
     color: var(--ink-secondary);
-    margin-bottom: 18px;
 }
 
-.item-specs {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--ink-muted);
-    border-top: 1px dotted var(--border-rule);
-    padding-top: 12px;
-}
-
-.spec-label {
-    font-weight: 600;
-    color: var(--ink-primary);
-}
-
-/* 10. Chronicles of Industry (Experience) */
-.entry-list {
-    display: flex;
-    flex-direction: column;
-}
-
-.book-entry {
-    display: grid;
-    grid-template-columns: 160px 1fr;
-    gap: 24px;
-    padding: 24px 0;
-    border-bottom: 1px solid var(--border-rule);
-}
-
-.book-entry:last-child {
-    border-bottom: none;
-}
-
-.entry-timeline {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--accent-mark);
-    letter-spacing: 0.05em;
-    padding-top: 4px;
-}
-
-.entry-role {
+.apparatus-heading {
     font-size: 1.25rem;
     font-weight: 500;
     margin-bottom: 4px;
 }
 
-.entry-firm {
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
-    font-weight: 600;
+.apparatus-subline {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
     color: var(--ink-muted);
     margin-bottom: 10px;
 }
 
-.entry-body {
-    font-size: 1rem;
-    line-height: 1.75;
+.apparatus-summary {
+    font-size: 0.94rem;
+    line-height: 1.7;
     color: var(--ink-secondary);
+    margin-bottom: 10px;
 }
 
-/* 11. Laurels & Distinctions (Honors) */
-.honor-ledger {
-    border: 1px solid var(--border-rule);
+.apparatus-specs {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-muted);
+    border-top: 1px dotted var(--border-rule);
+    padding-top: 8px;
+}
+
+/* 12. Page 5: Chronicles of Industry (Experience) */
+.chronicle-timeline {
+    display: flex;
+    flex-direction: column;
+    max-height: 480px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.chronicle-timeline::-webkit-scrollbar {
+    width: 5px;
+}
+
+.chronicle-timeline::-webkit-scrollbar-thumb {
+    background: var(--border-rule);
     border-radius: 4px;
-    background-color: var(--bg-surface);
 }
 
-.honor-line {
+.chronicle-row {
     display: grid;
-    grid-template-columns: 80px 1fr;
-    gap: 16px;
-    padding: 18px 24px;
+    grid-template-columns: 140px 1fr;
+    gap: 18px;
+    padding: 16px 0;
     border-bottom: 1px solid var(--border-rule);
 }
 
-.honor-line:last-child {
+.chronicle-row:last-child {
     border-bottom: none;
 }
 
-.honor-line.highlight-honor {
-    background-color: var(--accent-tint);
-}
-
-.honor-col-year {
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    color: var(--accent-mark);
-    font-weight: 600;
-    padding-top: 2px;
-}
-
-.honor-title {
-    display: block;
-    font-size: 1.12rem;
-    font-weight: 600;
-    color: var(--ink-primary);
-    margin-bottom: 4px;
-}
-
-.honor-authority {
-    display: block;
+.c-era {
     font-family: var(--font-mono);
     font-size: 0.75rem;
+    color: var(--accent-mark);
+    padding-top: 3px;
+}
+
+.c-title {
+    font-size: 1.15rem;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.c-firm {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
     color: var(--ink-muted);
     margin-bottom: 6px;
 }
 
-.honor-desc {
-    font-size: 0.95rem;
-    line-height: 1.6;
+.c-desc {
+    font-size: 0.92rem;
+    line-height: 1.65;
     color: var(--ink-secondary);
 }
 
-/* 12. Epistle / Colophon Box */
-.epistle-box {
-    background-color: var(--bg-surface);
+/* 13. Page 6: Laurels & Colophon */
+.honors-card {
+    background: var(--bg-card);
     border: 1px solid var(--border-rule);
     border-radius: 4px;
-    padding: 36px;
+    padding: 18px 22px;
+    margin-bottom: 20px;
 }
 
-.epistle-box > p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: var(--ink-secondary);
-    margin-bottom: 28px;
-}
-
-.dossier-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    margin-bottom: 36px;
-}
-
-.dossier-cell {
-    background-color: var(--bg-paper);
-    border: 1px solid var(--border-rule);
-    padding: 16px;
-    border-radius: 3px;
-}
-
-.d-label {
-    display: block;
+.honors-headline {
     font-family: var(--font-mono);
     font-size: 0.68rem;
     letter-spacing: 0.1em;
     color: var(--ink-muted);
-    margin-bottom: 4px;
+    border-bottom: 1px solid var(--border-rule);
+    padding-bottom: 6px;
+    margin-bottom: 12px;
 }
 
-.d-val {
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--ink-primary);
-    text-decoration: none;
-    word-break: break-all;
-    transition: color 0.15s ease;
+.honor-entry {
+    display: flex;
+    gap: 14px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: 0.88rem;
+    line-height: 1.5;
 }
 
-.d-val:hover {
+.honor-entry:last-child {
+    border-bottom: none;
+}
+
+.honor-entry.prize-entry {
     color: var(--accent-mark);
 }
 
-.colophon-notes {
+.h-year {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent-mark);
+    width: 44px;
+    flex-shrink: 0;
+}
+
+.correspondence-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-rule);
+    border-radius: 4px;
+    padding: 18px 22px;
+    margin-bottom: 16px;
+}
+
+.c-header {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+    margin-bottom: 12px;
+}
+
+.dossier-links-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.dossier-link {
+    background: var(--bg-page);
+    border: 1px solid var(--border-rule);
+    padding: 10px 14px;
+    border-radius: 3px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.15s ease;
+}
+
+.dossier-link:hover {
+    border-color: var(--accent-mark);
+    transform: translateY(-2px);
+}
+
+.d-type {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+    margin-bottom: 2px;
+}
+
+.d-data {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ink-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.colophon-seal-area {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.colophon-seal-icon {
+    font-size: 1.2rem;
+    color: var(--accent-mark);
+    margin-bottom: 4px;
+    display: inline-block;
+}
+
+.colophon-fineprint {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    line-height: 1.6;
+}
+
+/* 14. Bottom Navigation Toolbar */
+.book-nav-toolbar {
+    background-color: var(--bg-page);
     border-top: 1px solid var(--border-rule);
-    padding-top: 24px;
-    font-size: 0.88rem;
-    line-height: 1.7;
+    height: 56px;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.03);
+    transition: background-color 0.3s ease;
+}
+
+.toolbar-inner {
+    width: 100%;
+    max-width: 820px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.page-nav-btn {
+    background: var(--bg-page-alt);
+    border: 1px solid var(--border-rule);
+    color: var(--ink-primary);
+    padding: 7px 18px;
+    border-radius: 4px;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.page-nav-btn:hover {
+    background: var(--accent-mark);
+    border-color: var(--accent-mark);
+    color: #ffffff;
+}
+
+.page-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    background: var(--bg-page-alt);
+    border-color: var(--border-rule);
     color: var(--ink-muted);
 }
 
-.c-lead {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    color: var(--ink-primary);
-    margin-bottom: 6px;
+.leaf-indicators {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.c-signature {
-    margin-top: 14px;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--accent-mark);
+.leaf-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--border-rule);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.2s ease;
 }
 
-/* 13. Book Footer */
-.book-footer {
-    padding-top: 40px;
+.leaf-dot.active {
+    background: var(--accent-mark);
+    transform: scale(1.3);
+}
+
+.page-readout {
     font-family: var(--font-mono);
     font-size: 0.78rem;
     color: var(--ink-muted);
 }
 
-.footer-layout {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid var(--border-rule);
-    padding-top: 24px;
-    flex-wrap: wrap;
-    gap: 16px;
+.cur-page-num {
+    color: var(--ink-primary);
+    font-weight: 600;
 }
 
-.f-leaf {
-    font-size: 1.2rem;
-    color: var(--accent-mark);
-}
-
-.back-to-top {
-    color: var(--ink-secondary);
-    text-decoration: none;
-    transition: color 0.15s ease;
-}
-
-.back-to-top:hover {
-    color: var(--accent-mark);
-}
-
-/* 14. Responsive Rules */
-@media (max-width: 768px) {
-    html {
-        font-size: 16px;
-    }
-
-    .book-container {
-        padding: 0 20px;
-    }
-
-    .edition-tag {
+/* 15. Responsive Styling */
+@media (max-width: 900px) {
+    .turn-arrow {
         display: none;
     }
 
-    .taxonomy-columns {
+    .book-stage {
+        padding: 12px 10px;
+    }
+
+    .book-page {
+        padding: 30px 22px 20px;
+        min-height: 580px;
+    }
+
+    .dossier-links-grid {
         grid-template-columns: 1fr;
     }
 
-    .book-entry {
+    .chronicle-row {
         grid-template-columns: 1fr;
-        gap: 8px;
-    }
-
-    .honor-line {
-        grid-template-columns: 1fr;
-        gap: 6px;
-    }
-
-    .dossier-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .fact-row {
-        flex-direction: column;
         gap: 4px;
     }
 
-    .fact-val {
-        text-align: left;
-    }
-
-    .epistle-box {
-        padding: 24px 18px;
-    }
-
-    .footer-layout {
+    .ledger-row {
         flex-direction: column;
-        text-align: center;
+        gap: 2px;
+    }
+
+    .l-val {
+        text-align: left;
     }
 }
